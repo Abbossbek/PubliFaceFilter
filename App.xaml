@@ -1,0 +1,25 @@
+﻿<Application x:Class="PubliFaceFilter.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PubliFaceFilter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:CustomColorTheme BaseTheme="Dark"
+                                                 PrimaryColor="CornflowerBlue"
+                                                 SecondaryColor="LightBlue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary>
+                    <Geometry x:Key="DotsHorizontal">
+                        M 15 12 C 15 13.65625 13.65625 15 12 15 C 10.34375 15 9 13.65625 9 12 C 9 10.34375 10.34375 9 12 9 C 13.65625 9 15 10.34375 15 12 Z M 15 12
+                        M 6 12 C 6 13.65625 4.65625 15 3 15 C 1.34375 15 0 13.65625 0 12 C 0 10.34375 1.34375 9 3 9 C 4.65625 9 6 10.34375 6 12 Z M 6 12
+                        M 24 12 C 24 13.65625 22.65625 15 21 15 C 19.34375 15 18 13.65625 18 12 C 18 10.34375 19.34375 9 21 9 C 22.65625 9 24 10.34375 24 12 Z M 24 12
+                    </Geometry>
+                   
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
