@@ -1,22 +1,19 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿
+using MaterialDesignThemes.Wpf;
 
 using PubliFaceFilter.Pages;
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Security;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
+using System.Threading.Tasks;
 
 namespace PubliFaceFilter
 {
@@ -27,38 +24,45 @@ namespace PubliFaceFilter
     {
         private static int maskIndex = 0;
         private static List<string> masks = new List<string>() { 
-            "https://127.0.0.1:4443/demos/threejs/angel_demon",
-            "https://127.0.0.1:4443/demos/threejs/anonymous",
-            "https://127.0.0.1:4443/demos/threejs/butterflies",
-            "https://127.0.0.1:4443/demos/threejs/casa_de_papel",
-            "https://127.0.0.1:4443/demos/threejs/celFace",
-            "https://127.0.0.1:4443/demos/threejs/cloud",
-            "https://127.0.0.1:4443/demos/threejs/cube",
-            "https://127.0.0.1:4443/demos/threejs/cube2cv",
-            "https://127.0.0.1:4443/demos/threejs/cubeExpr",
-            "https://127.0.0.1:4443/demos/threejs/dog_face",
-            "https://127.0.0.1:4443/demos/threejs/faceDeform",
-            "https://127.0.0.1:4443/demos/threejs/fireworks",
-            "https://127.0.0.1:4443/demos/threejs/football_makeup",
-            "https://127.0.0.1:4443/demos/threejs/glassesVTO",
-            "https://127.0.0.1:4443/demos/threejs/gltf_fullScreen",
-            "https://127.0.0.1:4443/demos/threejs/halloween_spider",
-            "https://127.0.0.1:4443/demos/threejs/luffys_hat_part1",
-            "https://127.0.0.1:4443/demos/threejs/luffys_hat_part2",
-            "https://127.0.0.1:4443/demos/threejs/matrix",
-            "https://127.0.0.1:4443/demos/threejs/miel_pops",
-            "https://127.0.0.1:4443/demos/threejs/multiCubes",
-            "https://127.0.0.1:4443/demos/threejs/multiLiberty",
-            "https://127.0.0.1:4443/demos/threejs/rupy_helmet",
-            "https://127.0.0.1:4443/demos/threejs/tiger",
-            "https://127.0.0.1:4443/demos/threejs/werewolf", 
+            "http://127.0.0.1:4443/Library/demos/threejs/angel_demon",
+            "http://127.0.0.1:4443/Library/demos/threejs/anonymous",
+            "http://127.0.0.1:4443/Library/demos/threejs/butterflies",
+            "http://127.0.0.1:4443/Library/demos/threejs/casa_de_papel",
+            "http://127.0.0.1:4443/Library/demos/threejs/celFace",
+            "http://127.0.0.1:4443/Library/demos/threejs/cloud",
+            "http://127.0.0.1:4443/Library/demos/threejs/cube",
+            "http://127.0.0.1:4443/Library/demos/threejs/cube2cv",
+            "http://127.0.0.1:4443/Library/demos/threejs/cubeExpr",
+            "http://127.0.0.1:4443/Library/demos/threejs/dog_face",
+            "http://127.0.0.1:4443/Library/demos/threejs/faceDeform",
+            "http://127.0.0.1:4443/Library/demos/threejs/fireworks",
+            "http://127.0.0.1:4443/Library/demos/threejs/football_makeup",
+            "http://127.0.0.1:4443/Library/demos/threejs/glassesVTO",
+            "http://127.0.0.1:4443/Library/demos/threejs/gltf_fullScreen",
+            "http://127.0.0.1:4443/Library/demos/threejs/halloween_spider",
+            "http://127.0.0.1:4443/Library/demos/threejs/luffys_hat_part1",
+            "http://127.0.0.1:4443/Library/demos/threejs/luffys_hat_part2",
+            "http://127.0.0.1:4443/Library/demos/threejs/matrix",
+            "http://127.0.0.1:4443/Library/demos/threejs/miel_pops",
+            "http://127.0.0.1:4443/Library/demos/threejs/multiCubes",
+            "http://127.0.0.1:4443/Library/demos/threejs/multiLiberty",
+            "http://127.0.0.1:4443/Library/demos/threejs/rupy_helmet",
+            "http://127.0.0.1:4443/Library/demos/threejs/tiger",
+            "http://127.0.0.1:4443/Library/demos/threejs/werewolf", 
         };
         public MainWindow()
         {
             InitializeComponent();
-            var processInfo = new ProcessStartInfo(Environment.CurrentDirectory + "/Library/httpsServer.py");
-            processInfo.CreateNoWindow = true;
-            Process.Start(processInfo);
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((s,c,ch, ssl)=>true);
+            Task.Run(() =>
+            {
+
+            ScriptEngine engine = Python.CreateEngine();
+            var paths = engine.GetSearchPaths();
+            paths.Add(@"C:\Python27\Lib");
+            engine.SetSearchPaths(paths);
+            engine.ExecuteFile(Environment.CurrentDirectory + "/Library/Server.py");
+            });
         }
         public override void OnApplyTemplate()
         {
