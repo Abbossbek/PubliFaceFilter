@@ -8,8 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SaveDetailsPage">
     <Grid>
-        <Image x:Name="img"
-               Source="C:\Users\ABBOSBEK\Pictures\BMW Color 1920x1080.jpg" />
+        <Image x:Name="img" />
         <TextBlock x:Name="tbTimer" Text="5" FontSize="25" Width="40" Height="40" TextAlignment="Center" Background="#88ffffff" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <TextBlock x:Name="tbPath" Text="5" FontSize="25" Height="40" TextAlignment="Center" Background="#88ffffff" VerticalAlignment="Bottom" />
     </Grid>

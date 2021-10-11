@@ -26,14 +26,16 @@
 
     <link rel="stylesheet" href="../../../Style.css" type="text/css" />
 </head>
-  
-  <body onload="main()">
-    <!-- CANVAS BEHIND: VIDEO FACEFILTER ONLY -->
-    <canvas width="600" height="600" id='jeeFaceFilterCanvas'></canvas>
 
-    <!-- CANVAS ABOVE: AR WITH THREE.JS -->
-    <canvas width="600" height="600" id='threeCanvas'></canvas>
-  </body>
+<body onload="main()">
+    <div class='canvasContainer'>
+        <!-- CANVAS BEHIND: VIDEO FACEFILTER ONLY -->
+        <canvas width="600" height="600" id='jeeFaceFilterCanvas'></canvas>
+
+        <!-- CANVAS ABOVE: AR WITH THREE.JS -->
+        <canvas width="600" height="600" id='frameCanvas'></canvas>
+    </div>
+</body>
 </html>
- 
- 
+
+

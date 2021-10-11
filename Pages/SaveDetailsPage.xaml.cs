@@ -27,6 +27,7 @@ namespace PubliFaceFilter.Pages
         {
             InitializeComponent();
             _filePath = filePath;
+            img.Source = new BitmapImage(new Uri(filePath));
         }
         public async override void OnApplyTemplate()
         {

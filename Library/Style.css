@@ -1,5 +1,7 @@
 ﻿body {
     font-family: Helvetica Neu, Arial, sans-serif;
+    left: auto;
+    top: auto;
 }
 
 #jeeFaceFilterCanvas {

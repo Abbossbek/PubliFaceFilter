@@ -1,7 +1,7 @@
 <!-- Inspired from : https://threejs.org/examples/#misc_controls_orbit -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>three.js webgl - head controls</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -21,49 +21,50 @@
     <script src="./main.js"></script>
 
     <style>
-      body {
-        color: #000;
-        font-family:Monospace;
-        font-size:13px;
-        text-align:center;
-        font-weight: bold;
+        body {
+            color: #000;
+            font-family: Monospace;
+            font-size: 13px;
+            text-align: center;
+            font-weight: bold;
+            background-color: #fff;
+            margin: 0px;
+            overflow: hidden;
+        }
 
-        background-color: #fff;
-        margin: 0px;
-        overflow: hidden;
-      }
+        #info {
+            color: #000;
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            padding: 5px;
+        }
 
-      #info {
-        color:#000;
-        position: absolute;
-        top: 0px; width: 100%;
-        padding: 5px;
-      }
+        a {
+            color: red;
+        }
 
-      a {
-        color: red;
-      }
-
-      #headControlsCanvas {
-        position: fixed;
-        right: 0px;
-        bottom: 0px;
-        z-index: 1000;
-        transform-origin: bottom right;
-        max-height: 25%;
-        max-width: 25%;
-      }
+        #headControlsCanvas {
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            z-index: 1000;
+            transform-origin: bottom right;
+            max-height: 25%;
+            max-width: 25%;
+        }
     </style>
-  </head>
+</head>
 
-  <body onload='main()'>
-    <div id="container"></div>
-    <div id="info">
-      <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - head controls example. 3D scene from orbit control example.
+<body onload='main()'>
+    <div class='canvasContainer'>
+        <div id="container"></div>
+        <div id="info">
+            <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - head controls example. 3D scene from orbit control example.
+        </div>
+
+        <!-- This canvas will be used to display the head tracking: //-->
+        <canvas id='headControlsCanvas' width='512' height='512'></canvas>
     </div>
-
-    <!-- This canvas will be used to display the head tracking: //-->
-    <canvas id='headControlsCanvas' width='512' height='512'></canvas>
- 
-  </body>
+</body>
 </html>
