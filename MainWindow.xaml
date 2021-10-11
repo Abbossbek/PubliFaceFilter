@@ -26,10 +26,10 @@
                    NavigationUIVisibility="Hidden" />
         </materialDesign:DialogHost.DialogContent>
     <Grid>
-        <wpf:WebView2 Name="wv2" />
+        <wpf:WebView2 Name="wv2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
         <TextBlock x:Name="tbMain"
                    FontSize="72"
-                   Text="5"
+                   Text="5" Panel.ZIndex="10" Visibility="Collapsed"
                    Background="Transparent"
                    TextAlignment="Center"
                    VerticalAlignment="Center" />

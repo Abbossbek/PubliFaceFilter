@@ -82,6 +82,17 @@ namespace PubliFaceFilter
                     wv2.Source = new Uri(masks[maskIndex == masks.Count - 1 ? maskIndex = 0 : ++maskIndex]);
                     break;
                 case Key.Enter:
+                    tbMain.Visibility = Visibility.Visible;
+                    var i = Properties.Settings.Default.TakePictureTimeSeconds;
+                    while (i > 0)
+                    {
+                        tbMain.Text = i.ToString();
+                        i--;
+                        await Task.Delay(1000);
+                    }
+                    tbMain.Text = Properties.Settings.Default.TakePictureText;
+                    await Task.Delay(2000);
+                    tbMain.Visibility = Visibility.Collapsed;
                     int width = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Width, height = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Height;
 
                     var filePath = $"{Properties.Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':','_')}.jpg";
