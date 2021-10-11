@@ -287,6 +287,7 @@
     <None Include="Library\reactThreeFiberDemo\src\styles\index.scss" />
     <None Include="Library\reactThreeFiberDemo\src\styles\_variables.scss" />
     <None Include="Library\server.pem" />
+    <Content Include="Library\Style.css" />
     <None Include="Library\_config.yml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

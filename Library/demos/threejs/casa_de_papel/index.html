@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="content-language" content="en-EN" />
-    
+
     <title>JEELIZ FACEFILTER: CASA DE PAPEL</title>
-    
+
     <!-- INCLUDE JEELIZ FACEFILTER SCRIPT -->
     <script src="../../../dist/jeelizFaceFilter.js"></script>
 
@@ -30,34 +30,36 @@
     <!-- INCLUDE FORK ME ON GITHUB BANNER -->
     <script src="../../appearance/widget.js"></script>
 
-    <link rel="stylesheet" href="../../appearance/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../../Style.css" type="text/css" />
 
     <style>
-      #buttonPlayAudio {
-        background: #7a081e;
-        padding: 10px 15px;
-        font-size: 12pt;
-        border: none;
-        border-radius: 30px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 100000;
-        color: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5), 0 3px 5px rgba(0,0,0,0.3);
-        cursor: pointer;
-        transition: opacity 0.2s ease-in-out;
-      }
-      #buttonPlayAudio:hover {
-        opacity: 0.8;
-      }
-      .disabled {
-        pointer-events: none;
-        opacity: 0.5;
-      }
+        #buttonPlayAudio {
+            background: #7a081e;
+            padding: 10px 15px;
+            font-size: 12pt;
+            border: none;
+            border-radius: 30px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100000;
+            color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5), 0 3px 5px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+            #buttonPlayAudio:hover  {
+                opacity: 0.8;
+            }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     </style>
-  </head>
+</head>
   
   <body onload="main()">
     <canvas width="600" height="600" id='jeeFaceFilterCanvas'></canvas>
