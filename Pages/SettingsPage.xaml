@@ -48,7 +48,7 @@
                  Height="32" Grid.ColumnSpan="2"
                  Grid.Row="1"
                  Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureText}"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureText, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
         <TextBlock Text="Take Picture Time Seconds" VerticalAlignment="Center"
@@ -59,7 +59,7 @@
                  Height="32" Grid.ColumnSpan="2"
                  Grid.Row="2"
                  Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureTimeSeconds}"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureTimeSeconds, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
         <TextBlock Text="Picture Saved Time Seconds" VerticalAlignment="Center"
@@ -70,7 +70,7 @@
                  Height="32" Grid.ColumnSpan="2"
                  Grid.Row="3"
                  Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=PictureSavedTimeSeconds}"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=PictureSavedTimeSeconds, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
         <Button x:Name="btnSave" Foreground="{DynamicResource MaterialDesignDarkBackground}" Grid.Row="4" Grid.ColumnSpan="3" Width="100"

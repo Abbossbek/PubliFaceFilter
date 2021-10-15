@@ -6,9 +6,6 @@ using PubliFaceFilter.Pages;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Security;
 using System.Windows;
 using System.Windows.Input;
 using IronPython.Hosting;
@@ -17,6 +14,12 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Controls;
+using System.Net;
+using System.Linq;
+using System.Net.Security;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace PubliFaceFilter
 {
@@ -25,16 +28,23 @@ namespace PubliFaceFilter
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static int maskIndex = 0;
+        public const uint GW_CHILD = 1;
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetFocus(IntPtr hWnd);
+
+        private static bool enterClicked = false;
+        private static int maskIndex = 1;
         private static List<string> masks = new List<string>() {
-            "http://127.0.0.1:4443/Library/demos/threejs/angel_demon",
             "http://127.0.0.1:4443/Library/demos/threejs/anonymous",
             "http://127.0.0.1:4443/Library/demos/threejs/butterflies",
             "http://127.0.0.1:4443/Library/demos/threejs/casa_de_papel",
             "http://127.0.0.1:4443/Library/demos/threejs/celFace",
             "http://127.0.0.1:4443/Library/demos/threejs/cloud",
             "http://127.0.0.1:4443/Library/demos/threejs/cube",
-            "http://127.0.0.1:4443/Library/demos/threejs/cube2cv",
             "http://127.0.0.1:4443/Library/demos/threejs/dog_face",
             "http://127.0.0.1:4443/Library/demos/threejs/faceDeform",
             "http://127.0.0.1:4443/Library/demos/threejs/fireworks",
@@ -50,8 +60,9 @@ namespace PubliFaceFilter
             "http://127.0.0.1:4443/Library/demos/threejs/multiLiberty",
             "http://127.0.0.1:4443/Library/demos/threejs/rupy_helmet",
             "http://127.0.0.1:4443/Library/demos/threejs/tiger",
-            "http://127.0.0.1:4443/Library/demos/threejs/werewolf",
         };
+
+        private Frame dialogHostFrame = new Frame() { NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden };
         public MainWindow()
         {
             InitializeComponent();
@@ -65,55 +76,14 @@ namespace PubliFaceFilter
                 engine.ExecuteFile(Environment.CurrentDirectory + "/Library/Server.py");
             });
         }
+
         public async override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            await Task.Delay(3000);
+            await Task.Delay(5000);
+            await wv2.EnsureCoreWebView2Async();
             wv2.Source = new Uri(masks[maskIndex]);
-        }
-        private async void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Left:
-                    wv2.Source = new Uri(masks[maskIndex == 0 ? maskIndex = masks.Count - 1 : --maskIndex]);
-                    break;
-                case Key.Right:
-                    wv2.Source = new Uri(masks[maskIndex == masks.Count - 1 ? maskIndex = 0 : ++maskIndex]);
-                    break;
-                case Key.Enter:
-                    tbMain.Visibility = Visibility.Visible;
-                    var i = Properties.Settings.Default.TakePictureTimeSeconds;
-                    while (i > 0)
-                    {
-                        tbMain.Text = i.ToString();
-                        i--;
-                        await Task.Delay(1000);
-                    }
-                    tbMain.Text = Properties.Settings.Default.TakePictureText;
-                    await Task.Delay(2000);
-                    tbMain.Visibility = Visibility.Collapsed;
-                    int width = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Width, height = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Height;
-
-                    var filePath = $"{Properties.Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':','_')}.jpg";
-                    if (!Directory.Exists(Path.GetDirectoryName(filePath)))
-                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                    TakeScreenShot(0, 0, width, height).Save(filePath, ImageFormat.Jpeg);
-                    dialogHostFrame.NavigationService.RemoveBackEntry();
-                    dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
-                    await DialogHost.Show(dialogHostFrame);
-                    break;
-                case Key.S:
-                    if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-                    {
-                        dialogHostFrame.NavigationService.RemoveBackEntry();
-                        dialogHostFrame.NavigationService.Navigate(new SettingsPage());
-                        await DialogHost.Show(dialogHostFrame);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            wv2.PreviewGotKeyboardFocus += wv2_GotFocus;
         }
         private Bitmap TakeScreenShot(int startX, int startY, int width, int height)
         {
@@ -121,6 +91,84 @@ namespace PubliFaceFilter
             Graphics g = Graphics.FromImage(ScreenShot);
             g.CopyFromScreen(startX, startY, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
             return ScreenShot;
+        }
+        protected async override void OnPreviewKeyUp(KeyEventArgs e)
+        {
+            base.OnPreviewKeyUp(e);
+            switch (e.Key)
+            {
+                case Key.Left:
+                    dialogHost.IsOpen = false;
+                    wv2.Source = new Uri(masks[maskIndex == 0 ? maskIndex = masks.Count - 1 : --maskIndex]);
+                    break;
+                case Key.Right:
+                    dialogHost.IsOpen = false;
+                    wv2.Source = new Uri(masks[maskIndex == masks.Count - 1 ? maskIndex = 0 : ++maskIndex]);
+                    break;
+                case Key.Return:
+                    if (!enterClicked)
+                    {
+                        enterClicked = true;
+                        var i = Properties.Settings.Default.TakePictureTimeSeconds;
+                        var content = new TextBlock() { FontSize = 72, Margin = new Thickness(20), Foreground = System.Windows.Media.Brushes.Black };
+                        while (i > 0)
+                        {
+                            content.Text = i.ToString();
+                            dialogHost.IsOpen = false;
+                            DialogHost.Show(content);
+                            i--;
+                            await Task.Delay(1000);
+                            dialogHost.IsOpen = false;
+                        }
+                        content.Text = Properties.Settings.Default.TakePictureText;
+                        DialogHost.Show(content);
+                        await Task.Delay(1000);
+                        dialogHost.IsOpen = false;
+                        await Task.Delay(2000);
+                        int width = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Width, height = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Height;
+
+                        var filePath = $"{Properties.Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':', '_')}.jpg";
+                        if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+                            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                        TakeScreenShot(0, 0, width, height).Save(filePath, ImageFormat.Jpeg);
+                        dialogHostFrame.NavigationService.RemoveBackEntry();
+                        dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
+
+                        await DialogHost.Show(dialogHostFrame, new DialogOpenedEventHandler((s, u) =>
+                        {
+                            enterClicked = false;
+                        }));
+                    }
+                    break;
+                case Key.S:
+                    if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                    {
+                        dialogHostFrame.NavigationService.RemoveBackEntry();
+                        dialogHostFrame.NavigationService.Navigate(new SettingsPage());
+                        dialogHost.IsOpen = false;
+                        await DialogHost.Show(dialogHostFrame);
+                    }
+                    break;
+            }
+
+        }
+
+        private void wv2_GotFocus(object sender, RoutedEventArgs e)
+        {
+            wv2.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(wv2), null);
+            Keyboard.ClearFocus();
+            Keyboard.Focus(pbMain);
+        }
+
+        private void wv2_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+        {
+            wv2.Visibility = Visibility.Collapsed;
+        }
+
+        private void wv2_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+            wv2.Visibility = Visibility.Visible;
         }
     }
 }

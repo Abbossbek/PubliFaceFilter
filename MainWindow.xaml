@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PubliFaceFilter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="Black"
         WindowStyle="None"
         WindowState="Maximized"
-        Title="MainWindow"
-        Height="450" KeyDown="Window_KeyDown"
+        Focusable="True"
+        Height="450"
         Width="800">
     <materialDesign:DialogHost x:Name="dialogHost"
                                OverlayBackground="#A3000000">
@@ -20,19 +20,20 @@
                         Value="Transparent" />
             </Style>
         </materialDesign:DialogHost.Resources>
-        <materialDesign:DialogHost.DialogContent>
-            <Frame Name="dialogHostFrame"
-                   Background="Transparent"
-                   NavigationUIVisibility="Hidden" />
-        </materialDesign:DialogHost.DialogContent>
-    <Grid>
-        <wpf:WebView2 Name="wv2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
-        <TextBlock x:Name="tbMain"
-                   FontSize="72"
-                   Text="5" Panel.ZIndex="10" Visibility="Collapsed"
-                   Background="Transparent"
-                   TextAlignment="Center"
-                   VerticalAlignment="Center" />
+        <Grid x:Name="grid">
+            <!--<Image x:Name="ImageWebcam" />-->
+            <ProgressBar x:Name="pbMain" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Width="100" Focusable="True"
+                         IsIndeterminate="True"
+                         Height="100" />
+            <wpf:WebView2 DefaultBackgroundColor="#FF000000" 
+                          NavigationStarting="wv2_NavigationStarting"
+                          NavigationCompleted="wv2_NavigationCompleted"
+                          x:Name="wv2" Focusable="False"
+                          GotFocus="wv2_GotFocus"
+                          Visibility="Collapsed"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled" />
         </Grid>
     </materialDesign:DialogHost>
 </Window>

@@ -40,8 +40,9 @@ namespace PubliFaceFilter.Pages
                 i--;
                 await Task.Delay(1000);
             }
-
-            DialogHost.CloseDialogCommand.Execute(((MainWindow)Window.GetWindow(this)).dialogHost, null);
+            tbTimer.Visibility = Visibility.Collapsed;
+            btnClose.Visibility = Visibility.Visible;
+             DialogHost.CloseDialogCommand.Execute(((MainWindow)Window.GetWindow(this)).dialogHost, null);
         }
     }
 }

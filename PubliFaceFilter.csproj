@@ -36,6 +36,32 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IronPython, Version=2.7.11.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>packages\IronPython.2.7.11\lib\net45\IronPython.dll</HintPath>
@@ -74,8 +100,24 @@
       <HintPath>packages\Microsoft.Web.WebView2.1.0.1018-prerelease\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -140,23 +182,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Library\demos\threejs\angel_demon\dev\angel_demon_fight.blend" />
-    <None Include="Library\demos\threejs\angel_demon\dev\angel_demon_idle.blend" />
-    <None Include="Library\demos\threejs\angel_demon\dev\angel_demon_intro.blend" />
-    <None Include="Library\demos\threejs\angel_demon\dev\face.blend" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\angel_fight.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\angel_idle.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\angel_intro.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\harp_fight.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\harp_idle.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\angel\harp_intro.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\demon_fight.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\demon_idle.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\demon_intro.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\fourche_fight.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\fourche_idle.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\demon\fourche_intro.json" />
-    <None Include="Library\demos\threejs\angel_demon\models\face\face.json" />
     <None Include="Library\demos\threejs\anonymous\dev\anonymous_mask.blend" />
     <None Include="Library\demos\threejs\anonymous\models\anonymous\anonymous.json" />
     <None Include="Library\demos\threejs\butterflies\dev\butterfly.blend" />
@@ -235,9 +260,6 @@
     <None Include="Library\demos\threejs\rupy_helmet\models\helmet\visiere.json" />
     <None Include="Library\demos\threejs\tiger\dev\TigerHead.blend" />
     <None Include="Library\demos\threejs\tiger\TigerHead.json" />
-    <None Include="Library\demos\threejs\werewolf\dev\werewolf.blend" />
-    <None Include="Library\demos\threejs\werewolf\models\werewolf\werewolf.json" />
-    <None Include="Library\demos\threejs\werewolf\models\werewolf\werewolf_not_animated.json" />
     <None Include="Library\helpers\README.md" />
     <None Include="Library\libs\cesium\Assets\approximateTerrainHeights.json" />
     <None Include="Library\libs\cesium\Assets\IAU2006_XYS\IAU2006_XYS_0.json" />
@@ -301,13 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Library\Server.py" />
-    <Resource Include="Library\demos\threejs\angel_demon\images\cadre_v1.png" />
-    <Content Include="Library\demos\threejs\angel_demon\index.html" />
-    <Content Include="Library\demos\threejs\angel_demon\main.js" />
-    <Resource Include="Library\demos\threejs\angel_demon\models\angel\diffuse_angel.png" />
-    <Resource Include="Library\demos\threejs\angel_demon\models\angel\harpe.jpg" />
-    <Resource Include="Library\demos\threejs\angel_demon\models\demon\diffuse_demon.png" />
-    <Resource Include="Library\demos\threejs\angel_demon\models\demon\fourche.jpg" />
     <Resource Include="Library\demos\threejs\anonymous\images\frame.png" />
     <Resource Include="Library\demos\threejs\anonymous\images\téléchargement.png" />
     <Content Include="Library\demos\threejs\anonymous\index.html" />
@@ -451,19 +466,6 @@
     <Content Include="Library\demos\threejs\tiger\index.html" />
     <Content Include="Library\demos\threejs\tiger\main.js" />
     <Resource Include="Library\demos\threejs\tiger\white.png" />
-    <Resource Include="Library\demos\threejs\werewolf\images\frame.png" />
-    <Resource Include="Library\demos\threejs\werewolf\images\moon.png" />
-    <Content Include="Library\demos\threejs\werewolf\index.html" />
-    <Content Include="Library\demos\threejs\werewolf\main.js" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\fur_alpha.jpg" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\fur_diffuse.jpg" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\fur_flex.jpg" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\fur_normal.png" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\head_alpha.jpg" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\head_diffuse.png" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\head_flex.png" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\head_normal.jpg" />
-    <Resource Include="Library\demos\threejs\werewolf\models\werewolf\teeth_diffuse.jpg" />
     <Content Include="Library\dist\jeelizFaceFilter.js" />
     <Content Include="Library\dist\jeelizFaceFilter.module.js" />
     <Content Include="Library\dist\jeelizFaceFilter.moduleNoDOM.js" />
@@ -829,13 +831,13 @@
     <TypeScriptCompile Include="Library\typescript\JeelizFaceFilterInterfaces.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets'))" />
     <Error Condition="!Exists('packages\MaterialDesignThemes.4.3.0-ci53\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.4.3.0-ci53\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="packages\MaterialDesignThemes.4.3.0-ci53\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.3.0-ci53\build\MaterialDesignThemes.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1018-prerelease\build\Microsoft.Web.WebView2.targets')" />
 </Project>
