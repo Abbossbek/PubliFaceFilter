@@ -37,30 +37,6 @@ namespace PubliFaceFilter
         public static extern IntPtr SetFocus(IntPtr hWnd);
 
         private static bool enterClicked = false;
-        private static int maskIndex = 1;
-        private static List<string> masks = new List<string>() {
-            "http://127.0.0.1:4443/Library/demos/threejs/anonymous",
-            "http://127.0.0.1:4443/Library/demos/threejs/butterflies",
-            "http://127.0.0.1:4443/Library/demos/threejs/casa_de_papel",
-            "http://127.0.0.1:4443/Library/demos/threejs/celFace",
-            "http://127.0.0.1:4443/Library/demos/threejs/cloud",
-            "http://127.0.0.1:4443/Library/demos/threejs/cube",
-            "http://127.0.0.1:4443/Library/demos/threejs/dog_face",
-            "http://127.0.0.1:4443/Library/demos/threejs/faceDeform",
-            "http://127.0.0.1:4443/Library/demos/threejs/fireworks",
-            "http://127.0.0.1:4443/Library/demos/threejs/football_makeup",
-            "http://127.0.0.1:4443/Library/demos/threejs/glassesVTO",
-            "http://127.0.0.1:4443/Library/demos/threejs/gltf_fullScreen",
-            "http://127.0.0.1:4443/Library/demos/threejs/halloween_spider",
-            "http://127.0.0.1:4443/Library/demos/threejs/luffys_hat_part1",
-            "http://127.0.0.1:4443/Library/demos/threejs/luffys_hat_part2",
-            "http://127.0.0.1:4443/Library/demos/threejs/matrix",
-            "http://127.0.0.1:4443/Library/demos/threejs/miel_pops",
-            "http://127.0.0.1:4443/Library/demos/threejs/multiCubes",
-            "http://127.0.0.1:4443/Library/demos/threejs/multiLiberty",
-            "http://127.0.0.1:4443/Library/demos/threejs/rupy_helmet",
-            "http://127.0.0.1:4443/Library/demos/threejs/tiger",
-        };
 
         private Frame dialogHostFrame = new Frame() { NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden };
         public MainWindow()
@@ -82,7 +58,7 @@ namespace PubliFaceFilter
             base.OnApplyTemplate();
             await Task.Delay(5000);
             await wv2.EnsureCoreWebView2Async();
-            wv2.Source = new Uri(masks[maskIndex]);
+            wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
             wv2.PreviewGotKeyboardFocus += wv2_GotFocus;
         }
         private Bitmap TakeScreenShot(int startX, int startY, int width, int height)
@@ -99,11 +75,11 @@ namespace PubliFaceFilter
             {
                 case Key.Left:
                     dialogHost.IsOpen = false;
-                    wv2.Source = new Uri(masks[maskIndex == 0 ? maskIndex = masks.Count - 1 : --maskIndex]);
+                    wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
                     break;
                 case Key.Right:
                     dialogHost.IsOpen = false;
-                    wv2.Source = new Uri(masks[maskIndex == masks.Count - 1 ? maskIndex = 0 : ++maskIndex]);
+                    wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
                     break;
                 case Key.Return:
                     if (!enterClicked)

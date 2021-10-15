@@ -48,5 +48,17 @@ namespace PubliFaceFilter.Pages
             Regex regex = new Regex("[^0-9]");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private void btnAddLink_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Masks.Add("/Library/demos");
+            lbMasks.Items.Refresh();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+                Properties.Settings.Default.Masks.Remove(((System.Windows.Controls.Button)sender).DataContext.ToString());
+            lbMasks.Items.Refresh();
+        }
     }
 }

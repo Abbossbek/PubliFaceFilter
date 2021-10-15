@@ -22,10 +22,11 @@
         </materialDesign:DialogHost.Resources>
         <Grid x:Name="grid">
             <!--<Image x:Name="ImageWebcam" />-->
-            <ProgressBar x:Name="pbMain" Style="{StaticResource MaterialDesignCircularProgressBar}"
-                         Width="100" Focusable="True"
+                <Image Source="pack://application:,,,/logo.ico" Width="200" />
+                <ProgressBar x:Name="pbMain" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Width="200" Focusable="True" VerticalAlignment="Center"
                          IsIndeterminate="True"
-                         Height="100" />
+                         Height="200" />
             <wpf:WebView2 DefaultBackgroundColor="#FF000000" 
                           NavigationStarting="wv2_NavigationStarting"
                           NavigationCompleted="wv2_NavigationCompleted"

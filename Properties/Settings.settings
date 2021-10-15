@@ -14,5 +14,31 @@
     <Setting Name="PictureSavedTimeSeconds" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="Masks" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;/Library/demos/threejs/anonymous&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/butterflies&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/casa_de_papel&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/celFace&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/cloud&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/cube&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/dog_face&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/faceDeform&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/fireworks&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/football_makeup&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/glassesVTO&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/gltf_fullScreen&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/halloween_spider&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/luffys_hat_part1&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/luffys_hat_part2&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/matrix&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/miel_pops&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/multiCubes&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/multiLiberty&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/rupy_helmet&lt;/string&gt;
+  &lt;string&gt;/Library/demos/threejs/tiger&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

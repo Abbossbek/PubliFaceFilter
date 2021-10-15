@@ -7,7 +7,7 @@
       xmlns:properties="clr-namespace:PubliFaceFilter.Properties"
       mc:Ignorable="d"
       d:DesignHeight="400"
-      d:DesignWidth="680" 
+      d:DesignWidth="680"
       Background="White"
       Title="SettingsPage">
     <Grid Margin="15">
@@ -21,9 +21,11 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Save Path" VerticalAlignment="Center"
+        <TextBlock Text="Save Path"
+                   VerticalAlignment="Center"
                    FontSize="24" />
         <TextBox x:Name="tbSavePath"
                  Height="32"
@@ -41,39 +43,84 @@
                   Height="20"
                   Width="20" />
         </Button>
-        <TextBlock Text="Take Picture Text" VerticalAlignment="Center"
+        <TextBlock Text="Take Picture Text"
+                   VerticalAlignment="Center"
                    FontSize="24"
-                   Grid.Row="1"/>
+                   Grid.Row="1" />
         <TextBox x:Name="tbTakePictureText"
-                 Height="32" Grid.ColumnSpan="2"
+                 Height="32"
+                 Grid.ColumnSpan="2"
                  Grid.Row="1"
                  Grid.Column="1"
                  Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureText, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
-        <TextBlock Text="Take Picture Time Seconds" VerticalAlignment="Center"
+        <TextBlock Text="Take Picture Time Seconds"
+                   VerticalAlignment="Center"
                    FontSize="24"
-                   Grid.Row="2"/>
+                   Grid.Row="2" />
         <TextBox x:Name="tbTakePictureTimeSeconds"
                  PreviewTextInput="TextBox_PreviewTextInput"
-                 Height="32" Grid.ColumnSpan="2"
+                 Height="32"
+                 Grid.ColumnSpan="2"
                  Grid.Row="2"
                  Grid.Column="1"
                  Text="{Binding Source={x:Static properties:Settings.Default}, Path=TakePictureTimeSeconds, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
-        <TextBlock Text="Picture Saved Time Seconds" VerticalAlignment="Center"
+        <TextBlock Text="Picture Saved Time Seconds"
+                   VerticalAlignment="Center"
                    FontSize="24"
-                   Grid.Row="3"/>
+                   Grid.Row="3" />
         <TextBox x:Name="tbPictureSavedTimeSeconds"
                  PreviewTextInput="TextBox_PreviewTextInput"
-                 Height="32" Grid.ColumnSpan="2"
+                 Height="32"
+                 Grid.ColumnSpan="2"
                  Grid.Row="3"
                  Grid.Column="1"
                  Text="{Binding Source={x:Static properties:Settings.Default}, Path=PictureSavedTimeSeconds, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
-        <Button x:Name="btnSave" Foreground="{DynamicResource MaterialDesignDarkBackground}" Grid.Row="4" Grid.ColumnSpan="3" Width="100"
+        <StackPanel Grid.Row="4"
+                    Grid.ColumnSpan="3">
+            <DockPanel>
+                <Button x:Name="btnAddLink"
+                        Foreground="White"
+                        Width="100"
+                        DockPanel.Dock="Right"
+                        Content="Add"
+                        Click="btnAddLink_Click" />
+                <TextBlock Text="Mask links:"
+                           VerticalAlignment="Center"
+                           FontSize="24"
+                           Grid.Row="3" />
+            </DockPanel>
+            <ListBox x:Name="lbMasks"
+                     ItemsSource="{Binding Source={x:Static properties:Settings.Default}, Path=Masks, Mode=TwoWay}"
+                     Foreground="Black"
+                     Height="250">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Width="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=ActualWidth}">
+                            <Button x:Name="btnRemove"
+                                    
+                                    DockPanel.Dock="Right"
+                                    Foreground="White"
+                                    Background="Red"
+                                    Margin="20,5"
+                                    Content="Remove"
+                                    Click="btnRemove_Click" />
+                            <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=Content}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <Button x:Name="btnSave"
+                Foreground="White"
+                Grid.Row="5"
+                Grid.ColumnSpan="3"
+                Width="100"
                 Content="Save"
                 Click="btnSave_Click" />
     </Grid>
