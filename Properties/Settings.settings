@@ -16,7 +16,7 @@
     </Setting>
     <Setting Name="Masks" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
   &lt;string&gt;/Library/demos/threejs/anonymous&lt;/string&gt;
   &lt;string&gt;/Library/demos/threejs/butterflies&lt;/string&gt;
   &lt;string&gt;/Library/demos/threejs/casa_de_papel&lt;/string&gt;
@@ -39,6 +39,18 @@
   &lt;string&gt;/Library/demos/threejs/rupy_helmet&lt;/string&gt;
   &lt;string&gt;/Library/demos/threejs/tiger&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="UpdateInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="IdleInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="IdleText" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Loading...</Value>
+    </Setting>
+    <Setting Name="UpdateLink" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
