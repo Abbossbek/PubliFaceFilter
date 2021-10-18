@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PubliFaceFilter"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:PubliFaceFilter.Properties"
+    xmlns:local="clr-namespace:PubliFaceFilter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d" Background="Black"
@@ -21,8 +22,11 @@
             </Style>
         </materialDesign:DialogHost.Resources>
         <Grid x:Name="grid">
-            <!--<Image x:Name="ImageWebcam" />-->
-                <Image Source="pack://application:,,,/logo.ico" Width="200" />
+            <Image
+                x:Name="imgBack" />
+            <TextBlock FontSize="25" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,100" Foreground="White"
+                Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleText, Mode=TwoWay}" />
+            <Image Source="pack://application:,,,/logo.ico" Width="200" />
                 <ProgressBar x:Name="pbMain" Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Width="200" Focusable="True" VerticalAlignment="Center"
                          IsIndeterminate="True"
