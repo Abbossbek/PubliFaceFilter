@@ -21,8 +21,8 @@ using System.Net.Security;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using Renci.SshNet;
-using System.Threading;
 using PubliFaceFilter.Properties;
+using System.Timers;
 
 namespace PubliFaceFilter
 {
@@ -54,10 +54,12 @@ namespace PubliFaceFilter
                 engine.SetSearchPaths(paths);
                 engine.ExecuteFile(Environment.CurrentDirectory + "/Library/Server.py");
             });
-            var updateTimer = new Timer((a) =>
+            var updateTimer = new Timer(Settings.Default.UpdateInterval*60000);
+            updateTimer.Elapsed += async (o,e) =>
               {
-
-              }, null, 10000, Settings.Default.PictureSavedTimeSeconds);
+                  await FileUploadSFTP();
+              };
+            updateTimer.Start();
         }
 
         public async override void OnApplyTemplate()
@@ -65,15 +67,9 @@ namespace PubliFaceFilter
             base.OnApplyTemplate();
             await Task.Delay(5000);
             await wv2.EnsureCoreWebView2Async();
-            wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
+            wv2.Source = new Uri("http://127.0.0.1:4443" + Settings.Default.Masks[new Random().Next(0, Settings.Default.Masks.Count)]);
             wv2.PreviewGotKeyboardFocus += wv2_GotFocus;
-        }
-        private Bitmap TakeScreenShot(int startX, int startY, int width, int height)
-        {
-            Bitmap ScreenShot = new Bitmap(width, height);
-            Graphics g = Graphics.FromImage(ScreenShot);
-            g.CopyFromScreen(startX, startY, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
-            return ScreenShot;
+            await FileUploadSFTP();
         }
         protected async override void OnPreviewKeyUp(KeyEventArgs e)
         {
@@ -82,17 +78,17 @@ namespace PubliFaceFilter
             {
                 case Key.Left:
                     dialogHost.IsOpen = false;
-                    wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
+                    wv2.Source = new Uri("http://127.0.0.1:4443" + Settings.Default.Masks[new Random().Next(0, Settings.Default.Masks.Count)]);
                     break;
                 case Key.Right:
                     dialogHost.IsOpen = false;
-                    wv2.Source = new Uri("http://127.0.0.1:4443" + Properties.Settings.Default.Masks[new Random().Next(0, Properties.Settings.Default.Masks.Count)]);
+                    wv2.Source = new Uri("http://127.0.0.1:4443" + Settings.Default.Masks[new Random().Next(0, Settings.Default.Masks.Count)]);
                     break;
                 case Key.Return:
                     if (!enterClicked)
                     {
                         enterClicked = true;
-                        var i = Properties.Settings.Default.TakePictureTimeSeconds;
+                        var i = Settings.Default.TakePictureTimeSeconds;
                         var content = new TextBlock() { FontSize = 72, Margin = new Thickness(20), Foreground = System.Windows.Media.Brushes.Black };
                         while (i > 0)
                         {
@@ -103,14 +99,14 @@ namespace PubliFaceFilter
                             await Task.Delay(1000);
                             dialogHost.IsOpen = false;
                         }
-                        content.Text = Properties.Settings.Default.TakePictureText;
+                        content.Text = Settings.Default.TakePictureText;
                         DialogHost.Show(content);
                         await Task.Delay(1000);
                         dialogHost.IsOpen = false;
                         await Task.Delay(2000);
                         int width = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Width, height = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Height;
 
-                        var filePath = $"{Properties.Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':', '_')}.jpg";
+                        var filePath = $"{Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':', '_')}.jpg";
                         if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                         //TakeScreenShot(0, 0, width, height).Save(filePath, ImageFormat.Jpeg);
@@ -157,31 +153,34 @@ namespace PubliFaceFilter
         {
             wv2.Visibility = Visibility.Visible;
         }
-        public void FileUploadSFTP()
+        public async Task FileUploadSFTP()
         {
-            using (var client = new SftpClient(Properties.Settings.Default.SFTPHost, Properties.Settings.Default.SFTPPort,
-                Properties.Settings.Default.SFTPUsername, Properties.Settings.Default.SFTPPassword))
+            await Task.Run(() =>
             {
-                client.Connect();
-                if (client.IsConnected)
+                using (var client = new SftpClient(Settings.Default.SFTPHost, Settings.Default.SFTPPort,
+                    Settings.Default.SFTPUsername, Settings.Default.SFTPPassword))
                 {
-                    try
+                    client.Connect();
+                    if (client.IsConnected)
                     {
-                        foreach (var file in Directory.GetFiles(Properties.Settings.Default.SavePath))
+                        try
                         {
-                            using (var fileStream = new FileStream(file, FileMode.Open))
+                            foreach (var file in Directory.GetFiles(Settings.Default.SavePath))
                             {
-                                client.UploadFile(fileStream, Path.GetFileName(file));
+                                using (var fileStream = new FileStream(file, FileMode.Open))
+                                {
+                                    client.UploadFile(fileStream, Path.GetFileName(file));
+                                }
+                                File.Delete(file);
                             }
-                            File.Delete(file);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        throw;
-                    }
                 }
-            }
+            });
         }
     }
 }
