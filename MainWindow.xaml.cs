@@ -113,7 +113,11 @@ namespace PubliFaceFilter
                         var filePath = $"{Properties.Settings.Default.SavePath}\\{DateTime.Now.ToString().Replace(':', '_')}.jpg";
                         if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                        TakeScreenShot(0, 0, width, height).Save(filePath, ImageFormat.Jpeg);
+                        //TakeScreenShot(0, 0, width, height).Save(filePath, ImageFormat.Jpeg);
+                        using (var stream = File.Open(filePath, FileMode.OpenOrCreate))
+                        {
+                            await wv2.CoreWebView2.CapturePreviewAsync(Microsoft.Web.WebView2.Core.CoreWebView2CapturePreviewImageFormat.Jpeg, stream);
+                        }
                         dialogHostFrame.NavigationService.RemoveBackEntry();
                         dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
 
