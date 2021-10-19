@@ -12,7 +12,7 @@ namespace PubliFaceFilter.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -68,41 +68,6 @@ namespace PubliFaceFilter.Properties {
             }
             set {
                 this["PictureSavedTimeSeconds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-  <string>/Library/demos/threejs/anonymous</string>
-  <string>/Library/demos/threejs/butterflies</string>
-  <string>/Library/demos/threejs/casa_de_papel</string>
-  <string>/Library/demos/threejs/celFace</string>
-  <string>/Library/demos/threejs/cloud</string>
-  <string>/Library/demos/threejs/cube</string>
-  <string>/Library/demos/threejs/dog_face</string>
-  <string>/Library/demos/threejs/faceDeform</string>
-  <string>/Library/demos/threejs/fireworks</string>
-  <string>/Library/demos/threejs/football_makeup</string>
-  <string>/Library/demos/threejs/glassesVTO</string>
-  <string>/Library/demos/threejs/gltf_fullScreen</string>
-  <string>/Library/demos/threejs/halloween_spider</string>
-  <string>/Library/demos/threejs/luffys_hat_part1</string>
-  <string>/Library/demos/threejs/luffys_hat_part2</string>
-  <string>/Library/demos/threejs/matrix</string>
-  <string>/Library/demos/threejs/miel_pops</string>
-  <string>/Library/demos/threejs/multiCubes</string>
-  <string>/Library/demos/threejs/multiLiberty</string>
-  <string>/Library/demos/threejs/rupy_helmet</string>
-  <string>/Library/demos/threejs/tiger</string>
-</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection Masks {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Masks"]));
-            }
-            set {
-                this["Masks"] = value;
             }
         }
         
@@ -199,6 +164,41 @@ namespace PubliFaceFilter.Properties {
             }
             set {
                 this["UpdateLink"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>/Library/demos/threejs/anonymous</string>
+  <string>/Library/demos/threejs/butterflies</string>
+  <string>/Library/demos/threejs/casa_de_papel</string>
+  <string>/Library/demos/threejs/celFace</string>
+  <string>/Library/demos/threejs/cloud</string>
+  <string>/Library/demos/threejs/cube</string>
+  <string>/Library/demos/threejs/dog_face</string>
+  <string>/Library/demos/threejs/faceDeform</string>
+  <string>/Library/demos/threejs/fireworks</string>
+  <string>/Library/demos/threejs/football_makeup</string>
+  <string>/Library/demos/threejs/glassesVTO</string>
+  <string>/Library/demos/threejs/gltf_fullScreen</string>
+  <string>/Library/demos/threejs/halloween_spider</string>
+  <string>/Library/demos/threejs/luffys_hat_part1</string>
+  <string>/Library/demos/threejs/luffys_hat_part2</string>
+  <string>/Library/demos/threejs/matrix</string>
+  <string>/Library/demos/threejs/miel_pops</string>
+  <string>/Library/demos/threejs/multiCubes</string>
+  <string>/Library/demos/threejs/multiLiberty</string>
+  <string>/Library/demos/threejs/rupy_helmet</string>
+  <string>/Library/demos/threejs/tiger</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection Masks {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Masks"]));
+            }
+            set {
+                this["Masks"] = value;
             }
         }
     }
