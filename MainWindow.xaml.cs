@@ -20,6 +20,9 @@ using System.Linq;
 using System.Net.Security;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using Renci.SshNet;
+using System.Threading;
+using PubliFaceFilter.Properties;
 
 namespace PubliFaceFilter
 {
@@ -51,6 +54,10 @@ namespace PubliFaceFilter
                 engine.SetSearchPaths(paths);
                 engine.ExecuteFile(Environment.CurrentDirectory + "/Library/Server.py");
             });
+            var updateTimer = new Timer((a) =>
+              {
+
+              }, null, 10000, Settings.Default.PictureSavedTimeSeconds);
         }
 
         public async override void OnApplyTemplate()
@@ -145,6 +152,32 @@ namespace PubliFaceFilter
         private void wv2_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
             wv2.Visibility = Visibility.Visible;
+        }
+        public void FileUploadSFTP()
+        {
+            using (var client = new SftpClient(Properties.Settings.Default.SFTPHost, Properties.Settings.Default.SFTPPort,
+                Properties.Settings.Default.SFTPUsername, Properties.Settings.Default.SFTPPassword))
+            {
+                client.Connect();
+                if (client.IsConnected)
+                {
+                    try
+                    {
+                        foreach (var file in Directory.GetFiles(Properties.Settings.Default.SavePath))
+                        {
+                            using (var fileStream = new FileStream(file, FileMode.Open))
+                            {
+                                client.UploadFile(fileStream, Path.GetFileName(file));
+                            }
+                            File.Delete(file);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

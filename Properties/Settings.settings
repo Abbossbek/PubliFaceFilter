@@ -40,5 +40,17 @@
   &lt;string&gt;/Library/demos/threejs/tiger&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="SFTPHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">visualear.stackstorage.com</Value>
+    </Setting>
+    <Setting Name="SFTPPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="SFTPUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pubface@visualear.stackstorage.com</Value>
+    </Setting>
+    <Setting Name="SFTPPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">r1TY1J3gPRnCG7soO5e7mSYgxn0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

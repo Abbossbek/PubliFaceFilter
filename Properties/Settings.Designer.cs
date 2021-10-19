@@ -105,5 +105,53 @@ namespace PubliFaceFilter.Properties {
                 this["Masks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("visualear.stackstorage.com")]
+        public string SFTPHost {
+            get {
+                return ((string)(this["SFTPHost"]));
+            }
+            set {
+                this["SFTPHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
+        public int SFTPPort {
+            get {
+                return ((int)(this["SFTPPort"]));
+            }
+            set {
+                this["SFTPPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pubface@visualear.stackstorage.com")]
+        public string SFTPUsername {
+            get {
+                return ((string)(this["SFTPUsername"]));
+            }
+            set {
+                this["SFTPUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("r1TY1J3gPRnCG7soO5e7mSYgxn0")]
+        public string SFTPPassword {
+            get {
+                return ((string)(this["SFTPPassword"]));
+            }
+            set {
+                this["SFTPPassword"] = value;
+            }
+        }
     }
 }
