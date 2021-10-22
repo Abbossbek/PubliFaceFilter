@@ -5,12 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PubliFaceFilter.Pages"
       xmlns:properties="clr-namespace:PubliFaceFilter.Properties"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
-      d:DesignHeight="750"
+      d:DesignHeight="800"
       d:DesignWidth="880"
       Background="White"
+      Name="pgSettings"
       Title="SettingsPage">
-    <Grid Margin="15">
+    <Grid>
+        <Grid x:Name="grPass">
+            <Border 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="20"
+                    BorderBrush="Blue">
+                
+            <StackPanel  >
+                <TextBox x:Name="tbPasswordEnter"
+                         Height="32" Width="150" 
+                         Padding="0" materialDesign:HintAssist.Hint="Password"
+                         Grid.Column="1"
+                         FontSize="20" />
+                <Button x:Name="btnOpen"
+                        Foreground="White"
+                        Width="100"
+                        Content="Open"
+                        Margin="5"
+                        Click="btnOpen_Click" />
+            </StackPanel>
+            </Border>
+        </Grid>
+    <Grid Margin="15" x:Name="grMain" Visibility="Collapsed">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
             <ColumnDefinition Width="400" />
@@ -21,8 +46,9 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="100" />
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="200" />
@@ -99,7 +125,19 @@
                  Text="{Binding Source={x:Static properties:Settings.Default}, Path=UpdateInterval, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
-        <DockPanel Grid.Row="4"
+        <TextBlock Text="Picture Saved Text"
+                   VerticalAlignment="Center"
+                   FontSize="24"
+                   Grid.Row="4" />
+        <TextBox Height="32"
+                 Grid.ColumnSpan="2"
+                 Grid.Row="4"
+                 Padding="0"
+                 Grid.Column="1"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=PictureSavedText, Mode=TwoWay}"
+                 FontSize="20"
+                 Cursor="IBeam" />
+        <DockPanel Grid.Row="6"
                    Grid.ColumnSpan="3">
             <TextBlock Text="SFTP Server settings:"
                        DockPanel.Dock="Top"
@@ -115,6 +153,7 @@
                                Margin="5,0" />
                     <TextBox Height="32"
                              Margin="5,0"
+                             Padding="0"
                              Text="{Binding Source={x:Static properties:Settings.Default}, Path=SFTPHost, Mode=TwoWay}"
                              FontSize="20" />
                 </DockPanel>
@@ -125,6 +164,7 @@
                                FontSize="24"
                                Margin="5,0" />
                     <TextBox Height="32"
+                             Padding="0"
                              PreviewTextInput="TextBox_PreviewTextInput"
                              Margin="5,0"
                              Text="{Binding Source={x:Static properties:Settings.Default}, Path=SFTPPort, Mode=TwoWay}"
@@ -138,6 +178,7 @@
                                Margin="5,0" />
                     <TextBox Height="32"
                              Margin="5,0"
+                             Padding="0"
                              Text="{Binding Source={x:Static properties:Settings.Default}, Path=SFTPUsername, Mode=TwoWay}"
                              FontSize="20" />
                 </DockPanel>
@@ -148,24 +189,13 @@
                                FontSize="24"
                                Margin="5,0" />
                     <TextBox Height="32"
+                             Padding="0"
                              Margin="5,0"
                              Text="{Binding Source={x:Static properties:Settings.Default}, Path=SFTPPassword, Mode=TwoWay}"
                              FontSize="20" />
                 </DockPanel>
             </UniformGrid>
         </DockPanel>
-        <TextBlock Text="Idle Interval (minutes)"
-                   VerticalAlignment="Center"
-                   FontSize="24"
-                   Grid.Row="6" />
-        <TextBox PreviewTextInput="TextBox_PreviewTextInput"
-                 Height="32"
-                 Grid.ColumnSpan="2"
-                 Grid.Row="6"
-                 Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleInterval, Mode=TwoWay}"
-                 FontSize="20"
-                 Cursor="IBeam" />
         <TextBlock Text="Idle Text"
                    VerticalAlignment="Center"
                    FontSize="24"
@@ -178,7 +208,19 @@
                  Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleText, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
-        <StackPanel Grid.Row="8"
+        <TextBlock Text="Settings password"
+                   VerticalAlignment="Center"
+                   FontSize="24"
+                   Grid.Row="8" />
+        <TextBox Height="32"
+                 Padding="0"
+                 Grid.ColumnSpan="2"
+                 Grid.Row="8"
+                 Grid.Column="1"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=Password, Mode=TwoWay}"
+                 FontSize="20"
+                 Cursor="IBeam" />
+        <StackPanel Grid.Row="9"
                     Grid.ColumnSpan="3">
             <DockPanel>
                 <Button x:Name="btnAddLink"
@@ -192,7 +234,7 @@
                            FontSize="24" />
             </DockPanel>
             <ListBox x:Name="lbMasks"
-                     ItemsSource="{Binding Source={x:Static properties:Settings.Default}, Path=Masks, Mode=TwoWay}"
+                     ItemsSource="{Binding ElementName=pgSettings, Path=Strings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Foreground="Black"
                      Height="250">
                 <ListBox.ItemTemplate>
@@ -205,27 +247,61 @@
                                     Margin="20,5"
                                     Content="Remove"
                                     Click="btnRemove_Click" />
-                            <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=Content}" />
+                            <TextBox Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <Separator Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="8" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Separator Grid.Row="9" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-        <Button x:Name="btnSave"
-                Foreground="White"
-                Grid.Row="9"
-                Grid.ColumnSpan="3"
-                Width="100"
-                Content="Save"
-                Click="btnSave_Click" />
+        <Separator Grid.Row="1"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="2"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="3"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="4"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="5"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="6"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="7"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="8"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="9"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="10"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="10"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="3">
+
+            <Button x:Name="btnSave"
+                    Foreground="White"
+                    Width="100"
+                    Content="Save"
+                    Margin="5"
+                    Click="btnSave_Click" />
+            <Button x:Name="btnCancel"
+                    Margin="5"
+                    Foreground="White"
+                    Background="Red"
+                    Width="100"
+                    Content="Cancel"
+                    Command="materialDesign:DialogHost.CloseDialogCommand" />
+        </StackPanel>
+    </Grid>
     </Grid>
 </Page>

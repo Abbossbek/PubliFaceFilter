@@ -54,8 +54,8 @@ namespace PubliFaceFilter
                 engine.SetSearchPaths(paths);
                 engine.ExecuteFile(Environment.CurrentDirectory + "/Library/Server.py");
             });
-            var updateTimer = new Timer(Settings.Default.UpdateInterval*60000);
-            updateTimer.Elapsed += async (o,e) =>
+            var updateTimer = new Timer(Settings.Default.UpdateInterval * 60000);
+            updateTimer.Elapsed += async (o, e) =>
               {
                   await FileUploadSFTP();
               };
@@ -72,8 +72,11 @@ namespace PubliFaceFilter
             await FileUploadSFTP();
         }
         protected async override void OnPreviewKeyUp(KeyEventArgs e)
+        
         {
             base.OnPreviewKeyUp(e);
+            if (dialogHost.IsOpen)
+                return;
             switch (e.Key)
             {
                 case Key.Left:
@@ -114,13 +117,29 @@ namespace PubliFaceFilter
                         {
                             await wv2.CoreWebView2.CapturePreviewAsync(Microsoft.Web.WebView2.Core.CoreWebView2CapturePreviewImageFormat.Jpeg, stream);
                         }
-                        dialogHostFrame.NavigationService.RemoveBackEntry();
-                        dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
 
-                        await DialogHost.Show(dialogHostFrame, new DialogOpenedEventHandler((s, u) =>
+                        frame.Visibility = Visibility.Visible;
+                        frame.NavigationService.RemoveBackEntry();
+                        var page =new SaveDetailsPage(filePath);
+                        page.IsVisibleChanged += (a, s) =>
                         {
-                            enterClicked = false;
-                        }));
+                            if (!(bool)s.NewValue)
+                            {
+                                wv2.Visibility = Visibility.Visible;
+                                frame.Visibility = Visibility.Collapsed;
+                                enterClicked = false;
+                            }
+                        };
+                        frame.NavigationService.Navigate(page);
+                        
+                        wv2.Visibility = Visibility.Collapsed;
+                        //dialogHostFrame.NavigationService.RemoveBackEntry();
+                        //dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
+
+                        //await DialogHost.Show(dialogHostFrame, new DialogOpenedEventHandler((s, u) =>
+                        //{
+                        //    enterClicked = false;
+                        //}));
                     }
                     break;
                 case Key.S:
@@ -165,11 +184,15 @@ namespace PubliFaceFilter
                     {
                         try
                         {
+                            var ip = GetMyIp().ToString();
+                            var folder = $"{Environment.MachineName} (IP: {ip})";
                             foreach (var file in Directory.GetFiles(Settings.Default.SavePath))
                             {
                                 using (var fileStream = new FileStream(file, FileMode.Open))
                                 {
-                                    client.UploadFile(fileStream, Path.GetFileName(file));
+                                    if (!client.Exists(folder))
+                                        client.CreateDirectory(folder);
+                                    client.UploadFile(fileStream, $"{folder}/{Path.GetFileName(file)}");
                                 }
                                 File.Delete(file);
                             }
@@ -181,6 +204,25 @@ namespace PubliFaceFilter
                     }
                 }
             });
+        }
+
+        public static IPAddress GetMyIp()
+        {
+            List<string> services = new List<string>()
+        {
+            "https://ipv4.icanhazip.com",
+            "https://api.ipify.org",
+            "https://ipinfo.io/ip",
+            "https://checkip.amazonaws.com",
+            "https://wtfismyip.com/text",
+            "http://icanhazip.com"
+        };
+            using (var webclient = new WebClient())
+                foreach (var service in services)
+                {
+                    try { return IPAddress.Parse(webclient.DownloadString(service)); } catch { }
+                }
+            return null;
         }
     }
 }

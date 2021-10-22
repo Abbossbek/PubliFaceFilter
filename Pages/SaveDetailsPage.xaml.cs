@@ -42,7 +42,12 @@ namespace PubliFaceFilter.Pages
             }
             tbTimer.Visibility = Visibility.Collapsed;
             btnClose.Visibility = Visibility.Visible;
-             DialogHost.CloseDialogCommand.Execute(((MainWindow)Window.GetWindow(this)).dialogHost, null);
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

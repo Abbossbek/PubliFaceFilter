@@ -133,13 +133,13 @@ namespace PubliFaceFilter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int IdleInterval {
+        [global::System.Configuration.DefaultSettingValueAttribute("Find your picture at www.com")]
+        public string PictureSavedText {
             get {
-                return ((int)(this["IdleInterval"]));
+                return ((string)(this["PictureSavedText"]));
             }
             set {
-                this["IdleInterval"] = value;
+                this["PictureSavedText"] = value;
             }
         }
         
@@ -152,18 +152,6 @@ namespace PubliFaceFilter.Properties {
             }
             set {
                 this["IdleText"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UpdateLink {
-            get {
-                return ((string)(this["UpdateLink"]));
-            }
-            set {
-                this["UpdateLink"] = value;
             }
         }
         
@@ -199,6 +187,18 @@ namespace PubliFaceFilter.Properties {
             }
             set {
                 this["Masks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+            set {
+                this["Password"] = value;
             }
         }
     }

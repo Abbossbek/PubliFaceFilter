@@ -31,6 +31,7 @@
                          Width="200" Focusable="True" VerticalAlignment="Center"
                          IsIndeterminate="True"
                          Height="200" />
+            <Frame x:Name="frame" Background="Black" Visibility="Collapsed" NavigationUIVisibility="Hidden"/>
             <wpf:WebView2 DefaultBackgroundColor="#FF000000" 
                           NavigationStarting="wv2_NavigationStarting"
                           NavigationCompleted="wv2_NavigationCompleted"

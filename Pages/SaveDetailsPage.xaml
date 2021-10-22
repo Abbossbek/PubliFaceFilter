@@ -17,7 +17,7 @@
                 Height="50"
                 Background="#88ffffff"
                 Visibility="Collapsed"
-                Command="materialDesign:DialogHost.CloseDialogCommand" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                Click="btnClose_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <TextBlock x:Name="tbTimer" Text="5" FontSize="25" Width="50" Height="50" TextAlignment="Center" Background="#88ffffff" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <TextBlock x:Name="tbPath" Text="5" FontSize="25" Height="40" TextAlignment="Center" Background="#88ffffff" VerticalAlignment="Bottom" />
     </Grid>

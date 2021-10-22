@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,9 +25,30 @@ namespace PubliFaceFilter.Pages
     /// </summary>
     public partial class SettingsPage : Page
     {
+        public ObservableCollection<StringWrapper> Strings { get; set; } = new ObservableCollection<StringWrapper>();
+
+        public class StringWrapper
+        {
+            public string Content { get; set; }
+
+            public StringWrapper(string content)
+            {
+                this.Content = content;
+            }
+
+            public static implicit operator StringWrapper(string content)
+            {
+                return new SettingsPage.StringWrapper(content);
+            }
+        }
+
         public SettingsPage()
         {
             InitializeComponent();
+            foreach (var item in Properties.Settings.Default.Masks)
+            {
+                this.Strings.Add(item);
+            }
         }
 
         private void btnSavePath_Click(object sender, RoutedEventArgs e)
@@ -40,6 +62,8 @@ namespace PubliFaceFilter.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.Masks.Clear();
+            Properties.Settings.Default.Masks.AddRange(Strings.Select(x => x.Content).ToArray());
             Properties.Settings.Default.Save();
             DialogHost.CloseDialogCommand.Execute(((MainWindow)Window.GetWindow(this)).dialogHost, null);
         }
@@ -51,14 +75,23 @@ namespace PubliFaceFilter.Pages
 
         private void btnAddLink_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Masks.Add("/Library/demos");
+            Strings.Add("/Library/demos");
             lbMasks.Items.Refresh();
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-                Properties.Settings.Default.Masks.Remove(((System.Windows.Controls.Button)sender).DataContext.ToString());
+            Properties.Settings.Default.Masks.Remove(((System.Windows.Controls.Button)sender).DataContext.ToString());
             lbMasks.Items.Refresh();
+        }
+
+        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbPasswordEnter.Text == Properties.Settings.Default.Password)
+            {
+                grMain.Visibility = Visibility.Visible;
+                grPass.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
