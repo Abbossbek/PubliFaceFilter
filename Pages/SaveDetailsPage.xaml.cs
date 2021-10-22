@@ -32,7 +32,7 @@ namespace PubliFaceFilter.Pages
         public async override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            tbPath.Text = _filePath;
+            //tbPath.Text = _filePath;
             var i = Properties.Settings.Default.PictureSavedTimeSeconds;
             while (i > 0)
             {
