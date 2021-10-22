@@ -81,7 +81,7 @@ namespace PubliFaceFilter.Pages
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Masks.Remove(((System.Windows.Controls.Button)sender).DataContext.ToString());
+            Strings.Remove((StringWrapper)((System.Windows.Controls.Button)sender).DataContext);
             lbMasks.Items.Refresh();
         }
 
