@@ -25,7 +25,7 @@
             <Image
                 x:Name="imgBack" />
             <TextBlock FontSize="25" VerticalAlignment="Bottom" TextAlignment="Center" Margin="0,100" Foreground="White"
-                Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleText, Mode=TwoWay}" />
+                Text="Loading..." />
             <Image Source="pack://application:,,,/logo.ico" Width="200" />
                 <ProgressBar x:Name="pbMain" Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Width="200" Focusable="True" VerticalAlignment="Center"

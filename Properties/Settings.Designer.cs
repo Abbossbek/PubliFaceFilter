@@ -145,13 +145,13 @@ namespace PubliFaceFilter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Loading...")]
-        public string IdleText {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int IdleTime {
             get {
-                return ((string)(this["IdleText"]));
+                return ((int)(this["IdleTime"]));
             }
             set {
-                this["IdleText"] = value;
+                this["IdleTime"] = value;
             }
         }
         

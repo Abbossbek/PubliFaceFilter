@@ -32,8 +32,8 @@
     <Setting Name="PictureSavedText" Type="System.String" Scope="User">
       <Value Profile="(Default)">Find your picture at www.com</Value>
     </Setting>
-    <Setting Name="IdleText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Loading...</Value>
+    <Setting Name="IdleTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Masks" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;

@@ -35,24 +35,26 @@
             </StackPanel>
             </Border>
         </Grid>
-    <Grid Margin="15" x:Name="grMain" Visibility="Collapsed">
+    <Grid Margin="15" x:Name="grMain" Visibility="Visible">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
             <ColumnDefinition Width="400" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="200" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="190" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <TextBlock Text="Save Path"
                    VerticalAlignment="Center"
@@ -196,7 +198,7 @@
                 </DockPanel>
             </UniformGrid>
         </DockPanel>
-        <TextBlock Text="Idle Text"
+        <TextBlock Text="Time to idle mode (minutes)"
                    VerticalAlignment="Center"
                    FontSize="24"
                    Grid.Row="7" />
@@ -205,22 +207,22 @@
                  Grid.ColumnSpan="2"
                  Grid.Row="7"
                  Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleText, Mode=TwoWay}"
+                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=IdleTime, Mode=TwoWay}"
                  FontSize="20"
                  Cursor="IBeam" />
         <TextBlock Text="Settings password"
                    VerticalAlignment="Center"
                    FontSize="24"
-                   Grid.Row="8" />
+                   Grid.Row="10" />
         <TextBox Height="32"
                  Padding="0"
                  Grid.ColumnSpan="2"
-                 Grid.Row="8"
+                 Grid.Row="10"
                  Grid.Column="1"
-                 Text="{Binding Source={x:Static properties:Settings.Default}, Path=Password, Mode=TwoWay}"
+                 materialDesign:HintAssist.Hint="If you want to change password enter new"
                  FontSize="20"
                  Cursor="IBeam" />
-        <StackPanel Grid.Row="9"
+        <StackPanel Grid.Row="11"
                     Grid.ColumnSpan="3">
             <DockPanel>
                 <Button x:Name="btnAddLink"
@@ -283,8 +285,14 @@
         <Separator Grid.Row="10"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="3" />
+        <Separator Grid.Row="11"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+        <Separator Grid.Row="12"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="10"
+                    Grid.Row="12"
                     HorizontalAlignment="Center"
                     Grid.ColumnSpan="3">
 

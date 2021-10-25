@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -87,11 +88,16 @@ namespace PubliFaceFilter.Pages
 
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (tbPasswordEnter.Text == Properties.Settings.Default.Password)
+            if (Hash(tbPasswordEnter.Text) == Properties.Settings.Default.Password)
             {
                 grMain.Visibility = Visibility.Visible;
                 grPass.Visibility = Visibility.Collapsed;
             }
+        }
+        static string Hash(string input)
+        {
+            var hash = new SHA1Managed().ComputeHash(Encoding.UTF8.GetBytes(input));
+            return string.Concat(hash.Select(b => b.ToString("x2")));
         }
     }
 }
