@@ -62,7 +62,19 @@
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">356a192b7913b04c54574d18c28d46e6395428ab</Value>
+    </Setting>
+    <Setting Name="IdleVideoPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\</Value>
+    </Setting>
+    <Setting Name="TextSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">72</Value>
+    </Setting>
+    <Setting Name="TextBackground" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#ffffff</Value>
+    </Setting>
+    <Setting Name="TextForeground" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#000000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

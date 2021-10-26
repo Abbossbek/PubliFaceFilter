@@ -63,6 +63,10 @@ namespace PubliFaceFilter.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(tbPasswordEnter.Text))
+            {
+                Properties.Settings.Default.Password = Hash(tbPasswordEnter.Text);
+            }
             Properties.Settings.Default.Masks.Clear();
             Properties.Settings.Default.Masks.AddRange(Strings.Select(x => x.Content).ToArray());
             Properties.Settings.Default.Save();
@@ -98,6 +102,38 @@ namespace PubliFaceFilter.Pages
         {
             var hash = new SHA1Managed().ComputeHash(Encoding.UTF8.GetBytes(input));
             return string.Concat(hash.Select(b => b.ToString("x2")));
+        }
+
+        private void btnVideoPath_Click(object sender, RoutedEventArgs e)
+        {
+            var ofd = new OpenFileDialog() { Filter = "Videos (*.mp4, *.avi)|*.mp4;*.avi"};
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.IdleVideoPath = ofd.FileName;
+            }
+        }
+
+        private void btnBackground_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.TextBackground = ColorToHex(colorDialog.Color);
+            }
+        }
+
+        private void btnForeground_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.TextForeground = ColorToHex(colorDialog.Color);
+            }
+        }
+
+        private string ColorToHex(System.Drawing.Color color)
+        {
+            return  $"#{color.A.ToString("X2")}{color.R.ToString("X2")}{color.G.ToString("X2")}{color.B.ToString("X2")}";
         }
     }
 }

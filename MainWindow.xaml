@@ -40,6 +40,8 @@
                           Visibility="Collapsed"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+            <MediaElement x:Name="meIdleVideo"
+                          Visibility="Collapsed"/>
         </Grid>
     </materialDesign:DialogHost>
 </Window>

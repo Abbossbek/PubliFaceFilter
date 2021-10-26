@@ -42,6 +42,9 @@ namespace PubliFaceFilter
         private static bool enterClicked = false;
 
         private Frame dialogHostFrame = new Frame() { NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden };
+
+        private int IdleCount = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,6 +63,44 @@ namespace PubliFaceFilter
                   await FileUploadSFTP();
               };
             updateTimer.Start();
+            var waitTimer = new Timer(1000);
+            waitTimer.Elapsed += async (o, e) =>
+              {
+                  if (IdleCount > Settings.Default.IdleTime * 60)
+                  {
+                      await StartIdle();
+                  }
+                  else if (IdleCount == 0)
+                  {
+                      await StopIdle();
+                  }
+                  IdleCount++;
+              };
+            waitTimer.Start();
+        }
+
+        private async Task StopIdle()
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                meIdleVideo.Source = null;
+                wv2.Visibility = Visibility.Visible;
+                meIdleVideo.Visibility = Visibility.Collapsed;
+            });
+        }
+
+        private async Task StartIdle()
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                if (meIdleVideo.Source is null)
+                {
+
+                    meIdleVideo.Visibility = Visibility.Visible;
+                    wv2.Visibility = Visibility.Collapsed;
+                    meIdleVideo.Source = new Uri(Settings.Default.IdleVideoPath);
+                }
+            });
         }
 
         public async override void OnApplyTemplate()
@@ -72,9 +113,10 @@ namespace PubliFaceFilter
             await FileUploadSFTP();
         }
         protected async override void OnPreviewKeyUp(KeyEventArgs e)
-        
+
         {
             base.OnPreviewKeyUp(e);
+            IdleCount = 0;
             if (dialogHost.IsOpen)
                 return;
             switch (e.Key)
@@ -92,7 +134,13 @@ namespace PubliFaceFilter
                     {
                         enterClicked = true;
                         var i = Settings.Default.TakePictureTimeSeconds;
-                        var content = new TextBlock() { FontSize = 72, Margin = new Thickness(20), Foreground = System.Windows.Media.Brushes.Black };
+                        var content = new TextBlock()
+                        {
+                            FontSize = Settings.Default.TextSize,
+                            Padding = new Thickness(20),
+                            Foreground = (System.Windows.Media.Brush)new BrushConverter().ConvertFromString(Settings.Default.TextForeground),
+                            Background = (System.Windows.Media.Brush)new BrushConverter().ConvertFromString(Settings.Default.TextBackground)
+                        };
                         while (i > 0)
                         {
                             content.Text = i.ToString();
@@ -120,7 +168,7 @@ namespace PubliFaceFilter
 
                         frame.Visibility = Visibility.Visible;
                         frame.NavigationService.RemoveBackEntry();
-                        var page =new SaveDetailsPage(filePath);
+                        var page = new SaveDetailsPage(filePath);
                         page.IsVisibleChanged += (a, s) =>
                         {
                             if (!(bool)s.NewValue)
@@ -131,7 +179,7 @@ namespace PubliFaceFilter
                             }
                         };
                         frame.NavigationService.Navigate(page);
-                        
+
                         wv2.Visibility = Visibility.Collapsed;
                         //dialogHostFrame.NavigationService.RemoveBackEntry();
                         //dialogHostFrame.NavigationService.Navigate(new SaveDetailsPage(filePath));
