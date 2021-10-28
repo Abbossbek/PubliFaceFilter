@@ -17,8 +17,9 @@
                 FontSize="25"
                 Width="50"
                 Height="50"
-                Background="#88ffffff"
-                Visibility="Collapsed"
+            Foreground="{Binding Source={x:Static properties:Settings.Default}, Path=TextForeground, UpdateSourceTrigger=PropertyChanged}"
+            Background="{Binding Source={x:Static properties:Settings.Default}, Path=TextBackground, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="Collapsed"
                 Click="btnClose_Click"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right" />
@@ -27,16 +28,18 @@
                    FontSize="25"
                    Width="50"
                    Height="50"
-                   TextAlignment="Center"
-                   Background="#88ffffff"
+            Foreground="{Binding Source={x:Static properties:Settings.Default}, Path=TextForeground, UpdateSourceTrigger=PropertyChanged}"
+            Background="{Binding Source={x:Static properties:Settings.Default}, Path=TextBackground, UpdateSourceTrigger=PropertyChanged}"
+            TextAlignment="Center"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right" />
         <TextBlock x:Name="tbPath"
                    Text="{Binding Source={x:Static properties:Settings.Default}, Path=PictureSavedText}"
                    FontSize="25"
                    Height="40"
-                   TextAlignment="Center"
-                   Background="#88ffffff"
-                   VerticalAlignment="Bottom" />
+            TextAlignment="Center"
+            Foreground="{Binding Source={x:Static properties:Settings.Default}, Path=TextForeground, UpdateSourceTrigger=PropertyChanged}"
+            Background="{Binding Source={x:Static properties:Settings.Default}, Path=TextBackground, UpdateSourceTrigger=PropertyChanged}"
+            VerticalAlignment="Bottom" />
     </Grid>
 </Page>

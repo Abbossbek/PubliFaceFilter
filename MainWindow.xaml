@@ -13,12 +13,14 @@
         Focusable="True"
         Height="450"
         Width="800">
-    <materialDesign:DialogHost x:Name="dialogHost"
+    <materialDesign:DialogHost x:Name="dialogHost" BorderThickness="0" DialogBackground="Transparent" Background="Transparent"
                                OverlayBackground="#A3000000">
         <materialDesign:DialogHost.Resources>
             <Style TargetType="materialDesign:Card">
                 <Setter Property="Background"
                         Value="Transparent" />
+                <Setter Property="Focusable"
+                        Value="False" />
             </Style>
         </materialDesign:DialogHost.Resources>
         <Grid x:Name="grid">
