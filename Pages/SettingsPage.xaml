@@ -14,7 +14,7 @@
       Title="SettingsPage">
     <Grid>
         <Grid x:Name="grPass"
-              Visibility="Visible">
+              Visibility="Collapsed">
             <Border HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Padding="20"
@@ -48,7 +48,7 @@
         </Grid>
         <Grid Margin="15"
               x:Name="grMain"
-              Visibility="Collapsed">
+              Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="400" />
