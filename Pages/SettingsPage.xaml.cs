@@ -116,18 +116,28 @@ namespace PubliFaceFilter.Pages
         private void btnBackground_Click(object sender, RoutedEventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
+            var result = colorDialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 Properties.Settings.Default.TextBackground = ColorToHex(colorDialog.Color);
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                Properties.Settings.Default.TextBackground = "#00000000";
             }
         }
 
         private void btnForeground_Click(object sender, RoutedEventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
+            var result = colorDialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 Properties.Settings.Default.TextForeground = ColorToHex(colorDialog.Color);
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                Properties.Settings.Default.TextForeground = "#00000000";
             }
         }
 
