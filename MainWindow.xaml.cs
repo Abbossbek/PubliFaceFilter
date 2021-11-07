@@ -152,7 +152,7 @@ namespace PubliFaceFilter
                         }
                         content.Text = Settings.Default.TakePictureText;
                         DialogHost.Show(content);
-                        await Task.Delay(1000);
+                        await Task.Delay(Settings.Default.TakePictureTextTime * 1000);
                         dialogHost.IsOpen = false;
                         await Task.Delay(2000);
                         int width = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Width, height = (int)System.Windows.Forms.SystemInformation.MaxWindowTrackSize.Height;

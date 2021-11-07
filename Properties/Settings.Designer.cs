@@ -249,5 +249,17 @@ namespace PubliFaceFilter.Properties {
                 this["TextForeground"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int TakePictureTextTime {
+            get {
+                return ((int)(this["TakePictureTextTime"]));
+            }
+            set {
+                this["TakePictureTextTime"] = value;
+            }
+        }
     }
 }
